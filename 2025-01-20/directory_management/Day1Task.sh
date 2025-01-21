@@ -22,7 +22,7 @@ echo ""
 echo "### Task 2: User and Group Management ###"
 # Create new group named 'developers'
 if ! getent group developers; then
-  sudo groupadd developers
+  sudo groupadd developers 
   echo "Group 'developers' created."
 else
   echo "Group 'developers' already exists."
@@ -104,6 +104,6 @@ echo ""
 
 # Verify file creation and contents
 echo "Verifying file creation and contents:"
-cat /home/prajwol/project_files/welcome.txt
+sudo cat /home/prajwol/project_files/welcome.txt
 echo ""
 # -------------------------------------------------------------
