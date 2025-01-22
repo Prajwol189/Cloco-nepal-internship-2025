@@ -1,0 +1,96 @@
+/* Global Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Baloo Bhai 2", sans-serif;
+  color: #555;
+  line-height: 1.5;
+}
+
+/* Header Section */
+header {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 5rem;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+
+
+.nav-bar {
+  display: flex;
+  gap: 3rem;
+}
+
+.nav-bar a {
+  text-decoration: none;
+  color: black;
+  font-weight: bold;
+}
+
+.logo {
+  width: 90px;
+}
+
+/* Hero Section */
+.section-hero {
+  height: 83vh;
+  background: url(images/snow-leopard.jpg) center/cover no-repeat;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+}
+
+/* Grid Section */
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin: 2rem auto;
+  padding: 0 2rem;
+}
+
+.article {
+  background-color: aliceblue;
+  padding: 1rem;
+  border-radius: 5px;
+  text-align: justify;
+}
+
+.article img {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.article h2 {
+  font-size: 1.5rem;
+  margin: 0.5rem 0;
+}
+
+.article button {
+  background: linear-gradient(to right, #f16918, #f34225);
+  color: white;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+}
+
+/* Footer Section */
+footer {
+  text-align: center;
+  background-color: #f34225;
+  color: white;
+  padding: 1rem 0;
+}
