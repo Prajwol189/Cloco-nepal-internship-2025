@@ -49,7 +49,7 @@ form.addEventListener('submit', (event) => {
     const errors = validateForm();
 
     if (errors.length > 0) {
-    ]
+    
         errorMessagesContainer.innerHTML = errors.map(error => `<p>${error}</p>`).join('');
     } else {
        

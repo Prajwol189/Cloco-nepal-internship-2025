@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Application for Permission to Date My Daughter</title>
+    <style>
+      body {
+        font-family: "Anaheim", sans-serif;
+        background-color: lightgoldenrodyellow;
+        font-size: 1.2em;
+      }
+      form {
+        padding-top: 25px;
+        padding-bottom: 25px;
+        margin: 60px auto;
+        max-width: 600px;
+      }
+      h1 {
+        font-size: 1.5em;
+        text-align: center;
+        text-transform: capitalize;
+      }
+      fieldset {
+        background-color: white;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        padding: 15px;
+      }
+      .error {
+        color: red;
+      }
+      label {
+        display: block;
+        margin-top: 10px;
+      }
+      input,
+      select,
+      textarea {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 8px;
+        border-radius: 4px;
+        border: 1px solid #ccc;
+        font-size: 1em;
+      }
+      button {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-size: 1.2em;
+        background-color: darkblue;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+      button:hover {
+        background-color: darkcyan;
+      }
+    </style>
+  </head>
+  <body>
+    <form name="Form">
+      <h1>Application for Permission to Date My Daughter</h1>
+      <p><b>Note:</b> Form is to be completed at least 21 days prior to date</p>
+
+      <fieldset>
+        <legend>Personal Details</legend>
+        <label for="name">Name:</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Enter name here"
+          onchange="validateName()"
+          required
+        />
+        <span id="nameError" class="error"></span>
+
+        <label for="address">Address:</label>
+        <input
+          type="text"
+          id="address"
+          name="address"
+          placeholder="Enter address here"
+          onchange="validateAddress()"
+          required
+        />
+        <span id="addressError" class="error"></span>
+
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          placeholder="Enter email here"
+          onchange="validateEmail()"
+        />
+        <span id="emailError" class="error"></span>
+
+        <label for="phone">Phone Number:</label>
+        <input
+          type="tel"
+          id="phone"
+          name="phone"
+          placeholder="Enter 10-digit number"
+          onchange="validatePhone()"
+        />
+        <span id="phoneError" class="error"></span>
+
+        <label for="iq">IQ:</label>
+        <input
+          type="number"
+          id="iq"
+          name="iq"
+          min="0"
+          placeholder="Enter IQ here"
+          onchange="validateIQ()"
+        />
+        <span id="iqError" class="error"></span>
+
+        <label for="gender">Gender:</label>
+        <input type="radio" id="male" name="gender" value="male" /> Male<br />
+        <input type="radio" id="female" name="gender" value="female" />
+        Female<br />
+        <input type="radio" id="other" name="gender" value="other" />
+        Other<br />
+
+        <label for="date">Date of proposed outing:</label>
+        <input
+          type="date"
+          id="date"
+          name="date"
+          onchange="validateDate()"
+        />
+      </fieldset>
+
+      <fieldset>
+        <legend>Check All That Apply</legend>
+        <input type="checkbox" id="ch1" /> I have tattoos and/or piercings<br />
+        <input type="checkbox" id="ch2" /> I am more than 2 years older than your
+        daughter<br />
+        <input type="checkbox" id="ch3" /> I own a panel van or V8 ute<br />
+        <input type="checkbox" id="ch4" checked /> I work full-time<br />
+        <input type="checkbox" id="ch5" checked /> My parents are rich<br />
+        <input type="checkbox" id="ch6" checked /> The date is in a well-lit public
+        location<br />
+      </fieldset>
+
+      <fieldset>
+        <label for="politics">Political Persuasion:</label>
+        <select id="dropdown" name="politics">
+          <option value="left">Left Wing</option>
+          <option value="right">Right Wing</option>
+          <option value="conservative">Conservative</option>
+          <option value="nazi">Nazi</option>
+        </select>
+
+        <label for="education">Education Level Completed:</label>
+        <select id="dropdown2" name="education">
+          <option value="university">University</option>
+          <option value="college">College</option>
+          <option value="secondary">High School</option>
+          <option value="none">None</option>
+        </select>
+      </fieldset>
+
+      <fieldset>
+        <legend>Essay Section</legend>
+        <label for="essay">Explain why you want to date my daughter:</label>
+        <textarea
+          id="essay"
+          name="essay"
+          rows="4"
+          cols="50"
+          placeholder="Enter Text Here"
+          onchange="validateEssay()"
+          required
+        ></textarea>
+        <span id="essayError" class="error"></span>
+
+        <label for="references">Upload contact details for 2 references:</label>
+        <textarea
+          id="references"
+          name="references"
+          rows="4"
+          cols="50"
+          placeholder="Enter Text Here"
+        ></textarea>
+
+        <p>
+          Upload Police Clearance Certificate, Bank Statement, and Medical
+          Certificates here:
+        </p>
+        <input type="file" id="files" name="files" multiple />
+      </fieldset>
+
+      <button type="submit" onclick="validate(event)">Send your application</button>
+    </form>
+
+    <script>
+      // Validate Name
+      function validateName() {
+        const name = document.getElementById("name").value;
+        const nameError = document.getElementById("nameError");
+        if (name.length < 3 || name.length > 20) {
+          nameError.textContent = "Name must be between 3 and 20 characters.";
+          return false;
+        } else {
+          nameError.textContent = "";
+          return true;
+        }
+      }
+    
+      // Validate Address
+      function validateAddress() {
+        const address = document.getElementById("address").value;
+        const addressError = document.getElementById("addressError");
+        if (address.length < 5) {
+          addressError.textContent = "Address must be at least 5 characters long.";
+          return false;
+        } else {
+          addressError.textContent = "";
+          return true;
+        }
+      }
+    
+      // Validate Email
+      function validateEmail() {
+        const email = document.getElementById("email").value;
+        const emailError = document.getElementById("emailError");
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          emailError.textContent = "Please enter a valid email address.";
+          return false;
+        } else {
+          emailError.textContent = "";
+          return true;
+        }
+      }
+    
+      // Validate Phone Number
+      function validatePhone() {
+        const phone = document.getElementById("phone").value;
+        const phoneError = document.getElementById("phoneError");
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(phone)) {
+          phoneError.textContent = "Phone number must be a 10-digit number.";
+          return false;
+        } else {
+          phoneError.textContent = "";
+          return true;
+        }
+      }
+    
+      // Validate IQ
+      function validateIQ() {
+        const iq = document.getElementById("iq").value;
+        const iqError = document.getElementById("iqError");
+        if (iq < 70 || iq > 160) {
+          iqError.textContent = "IQ must be between 70 and 160.";
+          return false;
+        } else {
+          iqError.textContent = "";
+          return true;
+        }
+      }
+    
+      // Validate Gender
+      function validateGender() {
+        const gender = document.querySelector('input[name="gender"]:checked');
+        if (!gender) {
+          alert("Please select your gender.");
+          return false;
+        }
+        return true;
+      }
+    
+      // Validate Date
+      function validateDate() {
+        const date = document.getElementById("date").value;
+        if (!date) {
+          alert("Please select a date for the outing.");
+          return false;
+        }
+        return true;
+      }
+    
+      // Validate Essay
+      function validateEssay() {
+        const essay = document.getElementById("essay").value;
+        const essayError = document.getElementById("essayError");
+        if (essay.length < 50) {
+          essayError.textContent = "Essay must be at least 50 characters long.";
+          return false;
+        } else {
+          essayError.textContent = "";
+          return true;
+        }
+      }
+    
+      // Validate Entire Form
+      function validate(event) {
+        event.preventDefault(); // Prevent default form submission
+    
+        const isNameValid = validateName();
+        const isAddressValid = validateAddress();
+        const isEmailValid = validateEmail();
+        const isPhoneValid = validatePhone();
+        const isIQValid = validateIQ();
+        const isGenderValid = validateGender();
+        const isDateValid = validateDate();
+        const isEssayValid = validateEssay();
+    
+        if (
+          isNameValid &&
+          isAddressValid &&
+          isEmailValid &&
+          isPhoneValid &&
+          isIQValid &&
+          isGenderValid &&
+          isDateValid &&
+          isEssayValid
+        ) {
+          alert("Form submitted successfully!");
+          document.forms["From"].submit(); // Submit the form
+        }
+      }
+    </script>
+    
+  </body>
+</html>
