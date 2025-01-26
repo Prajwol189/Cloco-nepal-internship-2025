@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Form</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <form name="Form" >
+      <h1 id="title">Application for Permission to Date My Daughter</h1>
+      <p id="description">
+        <b>Note:</b> Form must be completed at least 21 days prior to the date.
+      </p>
+
+      <fieldset>
+        <legend>Personal Details</legend>
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input
+            type="text"
+            name="name"
+            id="name"
+            placeholder="Enter your name" onchange="validateName()"
+            required 
+          />
+          <div class="error"id="nameError"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="address">Address:</label>
+          <input
+            type="text"
+            name="address"
+            id="address"
+            placeholder="Enter your address" onchange="validateAddress()"
+            required 
+          />
+          <div class="error" id="addressError"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            name="email"
+            id="email"
+            placeholder="Enter your email"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="number">Phone Number:</label>
+          <input
+            type="tel"
+            name="number"
+            id="phone"
+            placeholder="Enter 10-digit phone number" onchange="validatePhone()"
+            required 
+          />
+          <div class="error" id="phoneError"></div>
+        </div>
+
+        <div class="form-group">
+          <label for="iq">IQ:</label>
+          <input type="number" name="iq" id="iq" placeholder="Enter your IQ" 
+          onchange="validateIQ()"/>
+          <div class="error" id="iqError"></div>
+        </div>
+
+        <p>
+          <label>Gender:</label><br />
+          <input type="radio" name="gender" id="male" value="male" required />
+          Male<br />
+          <input type="radio" name="gender" id="female" value="female" />
+          Female<br />
+          <input type="radio" name="gender" id="other" value="other" /> Other
+        </p>
+
+        <label for="date">Date of Proposed Outing:</label>
+        <input type="date" name="date" id="date" required />
+      </fieldset>
+
+      <fieldset>
+        <label for="requirement">Check All That Apply</label>
+        <p>
+          <input type="checkbox" id="ch1" onchange="validateCheckbox()"/> I have tattoos and/or piercings<br />
+          <input type="checkbox" id="ch2" onchange="validateCheckbox()"/> I am more than 2 years older than
+          your daughter<br />
+          <input type="checkbox" id="ch3" onchange="validateCheckbox()"/> I own a panel van or V8 ute<br />
+          <input type="checkbox" id="ch4" onchange="validateCheckbox()"/> I work full-time<br />
+          <input type="checkbox" id="ch5" onchange="validateCheckbox()"/> My parents are rich<br />
+          <input type="checkbox" id="ch6" onchange="validateCheckbox()"/> The date is at a well-lit public
+          location <br /> 
+        </p>
+        <div class="error" id="checkboxError"></div>
+      </fieldset>
+
+      <fieldset>
+        <legend>Other Details</legend>
+        <label for="politics">Political Persuasion:</label>
+        <select id="dropdown">
+          <option value="left">Left Wing</option>
+          <option value="right">Right Wing</option>
+          <option value="conservative">Conservative</option>
+          <option value="nazi">Nazi</option></select
+        ><br />
+
+        <label for="education">Education Level Completed:</label>
+        <select id="dropdown2">
+          <option value="university">University</option>
+          <option value="college">College</option>
+          <option value="secondary">High School</option>
+          <option value="none">None</option>
+        </select>
+      </fieldset>
+
+      <fieldset>
+        <legend>Essay Section</legend>
+        <div>
+          <p>In 50 words or more explain why you want to date my daughter</p>
+          <textarea
+            id="msg"
+            name="user_message"
+            rows="4"
+            cols="50"
+            placeholder="Enter Text Here" onchange="validateEssay()" required
+          ></textarea>
+          <div class="error" id="essayError"></div>
+        </div>
+        <div>
+          <p>Please upload contact details for 2 references</p>
+          <textarea
+            id="msg2"
+            name="user_message"
+            rows="4"
+            cols="50"
+            placeholder="Enter Text Here"
+          ></textarea>
+        </div>
+        <p>
+          Upload Police Clearance Certificate, Bank Statement and Medical
+          Certifiates here: <button>Attach Files</button>
+        </p>
+      </fieldset>
+
+      <div id="submitBtn">
+        <button type="submit" id="submit" onclick="validate(event)">
+          Submit Application
+        </button>
+        <div class="data-container" id="dataContainer">
+            <h2>Fetched Data</h2>
+            <!-- Fetched data will be displayed here -->
+          </div>
+      </div>
+     
+    </form>
+
+    <!-- Form Validation -->
+    <script type="text/javascript">
+      function validateName() {
+        //event.preventDefault(); // Prevent default form submission
+        let isValid = true; 
+
+      
+        const name = document.getElementById("name").value;
+        const nameError = document.getElementById("nameError");
+
+        if (name.length < 3 || name.length > 20) {
+          nameError.textContent = "Name must be between 3 and 20 characters.";
+          return false;
+        } else {
+          nameError.textContent = "";
+          return true;
+        }
+      }
+
+  
+      function validateAddress() {
+        const address = document.getElementById("address").value;
+        const addressError = document.getElementById("addressError");
+
+        if (address.length < 4 || address.length > 20) {
+          addressError.textContent =
+            "Address must be between 4 and 20 characters.";
+            return false;
+        } else {
+          addressError.textContent = "";
+          return true;
+        }
+      }
+
+        function validatePhone() {
+        const phone = document.getElementById("phone").value;
+        const phoneError = document.getElementById("phoneError");
+        const phoneRegex = /^\d{10}$/;
+        if (!phoneRegex.test(phone)) {
+          phoneError.textContent = "Phone number must be a 10-digit number.";
+          return false;
+        } else {
+          phoneError.textContent = "";
+          return true;
+        }
+      }
+     
+        function validateIQ() {
+        const iq = document.getElementById("iq").value;
+        const iqError = document.getElementById("iqError");
+
+        if (iq < 50 || iq > 200) {
+          iqError.textContent = "IQ must be between 50 and 200";
+          return false;
+        } else {
+          iqError.textContent = "";https://api.jsonbin.io/v3/b/67963517ad19ca34f8f4a642
+          return true;
+        }
+      }
+
+        function validateCheckbox(){
+        const checkbox = document.querySelector(
+          'input[type="checkbox"]:checked'
+        );
+        const checkboxError = document.getElementById("checkboxError");
+
+        if (!checkbox) {
+          checkboxError.textContent = "Please select at least one option.";
+          return false;
+        } else {
+          checkboxError.textContent = "";
+          return true;
+        }
+      }
+
+    
+        function validateEssay() {
+        const essay = document.getElementById("msg").value;
+        const essayError = document.getElementById("essayError");
+
+        if (essay.length < 5) {
+          essayError.textContent =
+            "The message must be at least 50 characters long";
+            return false;
+        } else {
+          essayError.textContent = "";
+          return true;
+        }
+      }
+      async function validate(event) {
+  event.preventDefault(); // Prevent default form submission
+
+  const isNameValid = validateName();
+  const isAddressValid = validateAddress();
+  const isPhoneValid = validatePhone();
+  const isIQValid = validateIQ();
+  const isCheckboxValid = validateCheckbox();
+  const isEssayValid = validateEssay();
+
+  if (
+    isNameValid &&
+    isAddressValid &&
+    isPhoneValid &&
+    isIQValid &&
+    isCheckboxValid &&
+    isEssayValid
+  ) {
+    // Collect form data into JSON
+    const formData = {
+      name: document.getElementById("name").value,
+      address: document.getElementById("address").value,
+      email: document.getElementById("email").value,
+      phone: document.getElementById("phone").value,
+      iq: parseInt(document.getElementById("iq").value),
+      gender: document.querySelector('input[name="gender"]:checked').value,
+      dateOfProposedOuting: document.getElementById("date").value,
+      reasonForDating: document.getElementById("msg").value,
+      references: document.getElementById("msg2").value,
+      politicalPersuasion: document.getElementById("dropdown").value,
+      educationLevelCompleted: document.getElementById("dropdown2").value,
+      hasTattoosOrPiercings: document.getElementById("ch1").checked,
+      isMoreThanTwoYearsOlder: document.getElementById("ch2").checked,
+      ownsPanelVanOrV8Ute: document.getElementById("ch3").checked,
+      worksFullTime: document.getElementById("ch4").checked,
+      parentsAreRich: document.getElementById("ch5").checked,
+      dateInWellLitLocation: document.getElementById("ch6").checked,
+    };
+
+    console.log(JSON.stringify(formData));
+
+    try {
+      const response = await fetch(
+        "https://api.jsonbin.io/v3/b/67963979acd3cb34a8d32aa9",
+        {
+          method: "put",
+          headers: {
+            "Content-Type": "application/json",
+            "X-Master-Key":
+              "$2a$10$/MoDfQVD/du0siQiCsf5D.VXr5mP8DORYJsWa48fsIZZVNBibRbyK",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+      const result = await response.json();
+      console.log(result);
+
+      if (response.ok) {
+        alert("Data posted successfully!");
+        document.forms["Form"].reset();
+        console.log("Response Data:", result);
+      } else {
+        alert("Failed to update data.");
+        console.error("Error Response:", result);
+      }
+    } catch (error) {
+      console.error("Network or API error:", error);
+      alert("An error occurred while posting data.");
+    }
+  }
+}
+
+async function displayData() {
+  try {
+    // Fetch the data from JSONBin
+    const response = await fetch('https://api.jsonbin.io/v3/b/67963979acd3cb34a8d32aa9', {
+      method: 'GET',
+      headers: {
+        'X-Master-Key': '$2a$10$/MoDfQVD/du0siQiCsf5D.VXr5mP8DORYJsWa48fsIZZVNBibRbyK', 
+      },
+    });
+
+    // Check if the response is OK
+    if (response.ok) {
+      const data = await response.json(); // Parse the JSON data
+
+      // Now we can display this data on the webpage
+      renderData(data.record); // Pass the data to a rendering function
+    } else {
+      console.error('Failed to fetch data:', response.status);
+    }
+  } catch (error) {
+    console.error('Error fetching data:', error);
+  }
+}
+
+// Function to render the data
+function renderData(data) {
+  // Select the element where you want to display the data
+  const dataContainer = document.getElementById('dataContainer');
+
+  // Clear any previous content
+  dataContainer.innerHTML = '';
+
+  // Iterate over the data and create HTML elements to display it
+  const list = document.createElement('ul');
+
+  for (const key in data) {
+    if (data.hasOwnProperty(key)) {
+      const listItem = document.createElement('li');
+      listItem.innerHTML = `<strong>${key}:</strong> ${data[key]}`;
+      list.appendChild(listItem);
+    }
+  }
+
+  // Append the list to the container
+  dataContainer.appendChild(list);
+}
+
+// Call displayData function when the page loads or when needed
+document.addEventListener('DOMContentLoaded', displayData);
+
+
+    </script>
+  </body>
+</html>
