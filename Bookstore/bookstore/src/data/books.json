@@ -1,0 +1,47 @@
+{
+  "books": [
+    {
+      "id": "1",
+
+      "name": "Atomic Habits",
+      "author": "James Clear",
+      "price": "15.99"
+    },
+    {
+      "id": "2",
+      "name": "The Alchemist",
+      "author": "Paulo Coelho",
+      "price": "12.50"
+    },
+    {
+      "id": "3",
+      "name": "Deep Work",
+      "author": "Cal Newport",
+      "price": "18.75"
+    },
+    {
+      "id": "4",
+      "name": "Rich Dad Poor Dad",
+      "author": "Robert Kiyosaki",
+      "price": "10.99"
+    },
+    {
+      "id": "5",
+      "name": "The 5 AM Club",
+      "author": "Robin Sharma",
+      "price": "14.20"
+    },
+    {
+      "id": "6",
+      "name": "Can't Hurt Me",
+      "author": "David Goggins",
+      "price": "16.50"
+    },
+    {
+      "id": "7",
+      "name": "Before the Coffe Gets Cold",
+      "author": "Toshikazu Kawaguchi",
+      "price": "880"
+    }
+  ]
+}
