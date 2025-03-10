@@ -12,9 +12,12 @@ import PaginationComp from "@/components/pagination"; // Import the pagination c
 
 interface Book {
   id: string;
-  name: string;
+  title: string;
   author: string;
+  publisher: string; // You can either store the name of the publisher or an ID depending on your API response
+  categories: string[]; // Array of category names or IDs
   price: string;
+  stock: number; // Stock count
 }
 
 export default function Page() {
@@ -29,13 +32,39 @@ export default function Page() {
 
   async function fetchBooks() {
     try {
-      const response = await fetch("http://localhost:4000/books");
+      const response = await fetch("http://127.0.0.1:8000/api/books/");
       const data: Book[] = await response.json();
       setBooks(data);
     } catch (error) {
       console.error("Error fetching books:", error);
     }
   }
+
+  const columns = [
+    { key: "id", label: "ID" },
+    { key: "title", label: "Title" },
+    { key: "author", label: "Author" },
+    { key: "publisher", label: "Publisher" }, // New field
+    { key: "categories", label: "Categories" }, // New field
+    { key: "price", label: "Price" },
+    { key: "stock", label: "Stock" }, // New field
+  ];
+
+  const handleDelete = async (id: number) => {
+    try {
+      await fetch(`http://127.0.0.1:8000/api/books/${id}/`, {
+        method: "DELETE",
+      });
+      fetchBooks(); // Refresh the book list after deletion
+    } catch (error) {
+      console.error("Error deleting book:", error);
+    }
+  };
+
+  const handleEdit = (book: Book) => {
+    // Implement the logic for editing the book (e.g., open a modal)
+    console.log("Editing:", book);
+  };
 
   // Pagination Logic
   const indexOfLastBook = currentPage * itemsPerPage;
@@ -69,7 +98,12 @@ export default function Page() {
           </div>
 
           <div className="flex flex-1 flex-col gap-4 p-6 bg-slate-100 rounded-lg shadow-sm">
-            <TableComp books={currentBooks} />
+            <TableComp
+              data={currentBooks}
+              columns={columns}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
+            />
             <PaginationComp
               totalItems={books.length}
               itemsPerPage={itemsPerPage}
