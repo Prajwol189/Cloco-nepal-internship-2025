@@ -63,7 +63,7 @@ const data = {
         },
         {
           title: "Authors",
-          url: "/authors", // ✅ Correct route
+          url: "/author", // ✅ Correct route
           icon: (
             <svg
               xmlns="http://www.w3.org/2000/svg"

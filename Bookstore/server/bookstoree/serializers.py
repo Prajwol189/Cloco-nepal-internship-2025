@@ -15,14 +15,14 @@ class CategorySerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
     name = serializers.CharField(max_length=100)
 
-class BookSerializer(serializers.Serializer):
-    id = serializers.IntegerField(read_only=True)
-    title = serializers.CharField(max_length=255)
-    author = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all())
-    publisher = serializers.PrimaryKeyRelatedField(queryset=Publisher.objects.all())
-    categories = serializers.PrimaryKeyRelatedField(many=True, queryset=Category.objects.all())
-    price = serializers.DecimalField(max_digits=6, decimal_places=2)
-    stock = serializers.IntegerField()
+class BookSerializer(serializers.ModelSerializer):
+    author = serializers.StringRelatedField()  # This will return the author's name instead of ID
+    publisher = serializers.StringRelatedField()  # This will return the publisher's name instead of ID
+    categories = serializers.StringRelatedField(many=True)  # This will return category names instead of IDs
+
+    class Meta:
+        model = Book
+        fields = ['id', 'title', 'author', 'publisher', 'categories', 'price', 'stock']
 
 class CustomerSerializer(serializers.Serializer):
     id = serializers.IntegerField(read_only=True)
