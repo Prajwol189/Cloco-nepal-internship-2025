@@ -1,6 +1,12 @@
 "use client";
+
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { AppSidebar } from "@/components/app-sidebar";
+import { Header } from "@/components/Header";
+import { Input } from "@/components/ui/input";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
+import { Button } from "@/components/ui/button";
 
 export default function AddBook() {
   const [formData, setFormData] = useState({
@@ -46,7 +52,7 @@ export default function AddBook() {
     fetchData();
   }, []);
 
-  async function handleSubmit(event: React.FormEvent) {
+  async function handleSubmit(event) {
     event.preventDefault();
 
     try {
@@ -71,7 +77,7 @@ export default function AddBook() {
       });
 
       if (response.ok) {
-        router.push("/dashboard"); // Redirect to the dashboard after success
+        router.push("/dashboard");
       } else {
         const errorData = await response.json();
         console.error("Failed to add book:", errorData);
@@ -82,161 +88,154 @@ export default function AddBook() {
   }
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 bg-white p-6 shadow-lg rounded-lg">
-      <h1 className="text-2xl font-bold mb-6 text-center">Add New Book</h1>
-      <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
-        {/* Title */}
-        <div className="col-span-2">
-          <label className="block text-gray-700 font-semibold mb-1">
-            Title
-          </label>
-          <input
-            type="text"
-            placeholder="Book Title"
-            value={formData.title}
-            onChange={(e) =>
-              setFormData({ ...formData, title: e.target.value })
-            }
-            className="border p-2 w-full rounded"
-            required
-          />
-        </div>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <Header />
+        <div className="max-w-2xl mx-auto mt-10 bg-white p-6 shadow-lg rounded-lg">
+          <h1 className="text-2xl font-bold mb-6 text-center">Add New Book</h1>
+          <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
+            <div className="col-span-2">
+              <label className="block text-gray-700 font-semibold mb-1">
+                Title
+              </label>
+              <Input
+                type="text"
+                placeholder="Book Title"
+                value={formData.title}
+                onChange={(e) =>
+                  setFormData({ ...formData, title: e.target.value })
+                }
+                required
+              />
+            </div>
 
-        {/* Author Dropdown */}
-        <div>
-          <label className="block text-gray-700 font-semibold mb-1">
-            Author
-          </label>
-          <select
-            value={formData.author_id ?? ""}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                author_id: e.target.value ? Number(e.target.value) : null,
-              })
-            }
-            className="border p-2 w-full rounded"
-            required
-          >
-            <option value="">Select Author</option>
-            {authors.map((author) => (
-              <option key={author.id} value={author.id}>
-                {author.name}
-              </option>
-            ))}
-          </select>
-        </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">
+                Author
+              </label>
+              <select
+                value={formData.author_id ?? ""}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    author_id: e.target.value ? Number(e.target.value) : null,
+                  })
+                }
+                className="border p-2 w-full rounded"
+                required
+              >
+                <option value="">Select Author</option>
+                {authors.map((author) => (
+                  <option key={author.id} value={author.id}>
+                    {author.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        {/* Category Dropdown */}
-        <div>
-          <label className="block text-gray-700 font-semibold mb-1">
-            Category
-          </label>
-          <select
-            value={formData.category_id ?? ""}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                category_id: e.target.value ? Number(e.target.value) : null,
-              })
-            }
-            className="border p-2 w-full rounded"
-            required
-          >
-            <option value="">Select Category</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-        </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">
+                Category
+              </label>
+              <select
+                value={formData.category_id ?? ""}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    category_id: e.target.value ? Number(e.target.value) : null,
+                  })
+                }
+                className="border p-2 w-full rounded"
+                required
+              >
+                <option value="">Select Category</option>
+                {categories.map((category) => (
+                  <option key={category.id} value={category.id}>
+                    {category.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        {/* Publisher Dropdown */}
-        <div>
-          <label className="block text-gray-700 font-semibold mb-1">
-            Publisher
-          </label>
-          <select
-            value={formData.publisher_id ?? ""}
-            onChange={(e) =>
-              setFormData({
-                ...formData,
-                publisher_id: e.target.value ? Number(e.target.value) : null,
-              })
-            }
-            className="border p-2 w-full rounded"
-            required
-          >
-            <option value="">Select Publisher</option>
-            {publishers.map((publisher) => (
-              <option key={publisher.id} value={publisher.id}>
-                {publisher.name}
-              </option>
-            ))}
-          </select>
-        </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">
+                Publisher
+              </label>
+              <select
+                value={formData.publisher_id ?? ""}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    publisher_id: e.target.value
+                      ? Number(e.target.value)
+                      : null,
+                  })
+                }
+                className="border p-2 w-full rounded"
+                required
+              >
+                <option value="">Select Publisher</option>
+                {publishers.map((publisher) => (
+                  <option key={publisher.id} value={publisher.id}>
+                    {publisher.name}
+                  </option>
+                ))}
+              </select>
+            </div>
 
-        {/* Price */}
-        <div>
-          <label className="block text-gray-700 font-semibold mb-1">
-            Price
-          </label>
-          <input
-            type="number"
-            placeholder="Price"
-            value={formData.price}
-            onChange={(e) =>
-              setFormData({ ...formData, price: e.target.value })
-            }
-            className="border p-2 w-full rounded"
-            required
-          />
-        </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">
+                Price
+              </label>
+              <Input
+                type="number"
+                placeholder="Price"
+                value={formData.price}
+                onChange={(e) =>
+                  setFormData({ ...formData, price: e.target.value })
+                }
+                required
+              />
+            </div>
 
-        {/* Stock */}
-        <div>
-          <label className="block text-gray-700 font-semibold mb-1">
-            Stock
-          </label>
-          <input
-            type="number"
-            placeholder="Stock"
-            value={formData.stock}
-            onChange={(e) =>
-              setFormData({ ...formData, stock: Number(e.target.value) })
-            }
-            className="border p-2 w-full rounded"
-            required
-          />
-        </div>
+            <div>
+              <label className="block text-gray-700 font-semibold mb-1">
+                Stock
+              </label>
+              <Input
+                type="number"
+                placeholder="Stock"
+                value={formData.stock}
+                onChange={(e) =>
+                  setFormData({ ...formData, stock: Number(e.target.value) })
+                }
+                required
+              />
+            </div>
 
-        {/* Published Date */}
-        <div className="col-span-2">
-          <label className="block text-gray-700 font-semibold mb-1">
-            Published Date
-          </label>
-          <input
-            type="date"
-            value={formData.published_date}
-            onChange={(e) =>
-              setFormData({ ...formData, published_date: e.target.value })
-            }
-            className="border p-2 w-full rounded"
-            required
-          />
-        </div>
+            <div className="col-span-2">
+              <label className="block text-gray-700 font-semibold mb-1">
+                Published Date
+              </label>
+              <Input
+                type="date"
+                value={formData.published_date}
+                onChange={(e) =>
+                  setFormData({ ...formData, published_date: e.target.value })
+                }
+                required
+              />
+            </div>
 
-        {/* Submit Button */}
-        <div className="col-span-2">
-          <button
-            type="submit"
-            className="bg-blue-500 text-white p-2 w-full rounded hover:bg-blue-600"
-          >
-            Add Book
-          </button>
+            <div className="col-span-2">
+              <Button type="submit" className="w-full">
+                Add Book
+              </Button>
+            </div>
+          </form>
         </div>
-      </form>
-    </div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
