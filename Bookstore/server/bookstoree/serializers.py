@@ -16,9 +16,9 @@ class CategorySerializer(serializers.Serializer):
     name = serializers.CharField(max_length=100)
 
 class BookSerializer(serializers.ModelSerializer):
-    author = serializers.StringRelatedField()  # This will return the author's name instead of ID
-    publisher = serializers.StringRelatedField()  # This will return the publisher's name instead of ID
-    categories = serializers.StringRelatedField(many=True)  # This will return category names instead of IDs
+    author = serializers.PrimaryKeyRelatedField(queryset=Author.objects.all())
+    publisher = serializers.PrimaryKeyRelatedField(queryset=Publisher.objects.all())
+    categories = serializers.PrimaryKeyRelatedField(queryset=Category.objects.all(), many=True)
 
     class Meta:
         model = Book
